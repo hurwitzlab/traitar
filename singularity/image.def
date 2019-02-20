@@ -1,0 +1,20 @@
+BootStrap: docker
+From: ubuntu:latest
+
+%environment
+    PATH=/app/traitar/scripts:$PATH
+
+%runscript
+    exec traitar
+
+%post
+    apt-get update
+    apt-get install -y git parallel prodigal hmmer python3 python-scipy \
+        python-matplotlib python-pip python-pandas
+
+    pip install traitar-1.1.1.tar.gz
+
+    # Mount points for TACC directories
+    mkdir /home1
+    mkdir /scratch
+    mkdir /work
